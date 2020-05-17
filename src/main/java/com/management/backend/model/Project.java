@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,12 +19,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "projects")
 public class Project{
+
+    // Properties ---------------------------------->
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
     private String name;
+
+    @Column(name = "hourly_volume", nullable = false)
+    private Integer hourlyVolume;
 
     @Column(name = "start_date", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -33,13 +39,15 @@ public class Project{
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    @Column(name = "hourly_volume", nullable = false)
-    private Integer hourlyVolume;
 
-    @OneToMany(mappedBy = "project")
-    @JsonIgnoreProperties("project")
+    // Relationships ------------------------------->
+    // Project belong to many tasks
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "project", "collaboraters", "competences"})
     private List<Task> tasks;
 
+
+    // Constructors, getters and setters  ------------>
     public Project() { }
 
     public Integer getId() {
@@ -58,6 +66,14 @@ public class Project{
         this.name = name;
     }
 
+    public Integer getHourlyVolume() {
+        return hourlyVolume;
+    }
+
+    public void setHourlyVolume(Integer hourlyVolume) {
+        this.hourlyVolume = hourlyVolume;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -74,14 +90,6 @@ public class Project{
         this.endDate = endDate;
     }
 
-    public Integer getHourlyVolume() {
-        return hourlyVolume;
-    }
-
-    public void setHourlyVolume(Integer hourlyVolume) {
-        this.hourlyVolume = hourlyVolume;
-    }
-
     public List<Task> getTasks() {
         return tasks;
     }
@@ -89,4 +97,5 @@ public class Project{
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
 }

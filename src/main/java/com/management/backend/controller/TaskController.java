@@ -3,6 +3,7 @@ package com.management.backend.controller;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import com.management.backend.model.Task;
@@ -61,10 +62,14 @@ public class TaskController {
     // DELETE Resquest -------------------------------
     @DeleteMapping("/tasks/{id}")
     public void delete(@PathVariable Integer id){
-        if (this.taskRepository.existsById(id))
+        Task currentTask = this.taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Could not find task " + id));
+
+        if (currentTask.getProject() != null && currentTask.getCollaboraters().isEmpty() && currentTask.getCompetences().isEmpty())
             this.taskRepository.deleteById(id);
         else
-            throw new EntityNotFoundException("Could not find Task " + id);    
+            throw new ConstraintViolationException("The task: '" + currentTask.getName()
+                    + "' is associated with project or collaborators or competences, try to delete them first", null);   
     }
     
 }
