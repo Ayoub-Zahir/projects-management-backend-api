@@ -37,6 +37,9 @@ public class Task {
     @Column(name = "hourly_volume", nullable = false)
     private Integer hourlyVolume;
 
+    @Column(name = "is_complete", nullable = false ,columnDefinition = "boolean default false")
+    private Boolean isComplete;
+
     @Column(name = "start_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startDate; 
@@ -137,6 +140,14 @@ public class Task {
 
     public void setCollaboraters(Set<CollaboraterTask> collaboraters) {
         this.collaboraters = collaboraters;
+    }
+
+    public Boolean getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Boolean isComplete) {
+        this.isComplete = isComplete;
     }
 
 }

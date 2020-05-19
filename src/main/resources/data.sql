@@ -27,11 +27,11 @@ INSERT INTO `collaborater_competence` (`competence_id`, `collaborater_id`) VALUE
 
 -- /** projects table ********************************/
 INSERT INTO 
-`projects` (`end_date`, `hourly_volume`, `name`, `start_date`) 
+`projects` (`end_date`, `hourly_volume`, `name`, `description`, `start_date`) 
 VALUES
-('2020-05-12', 20, 'Management System', '2020-06-12'),
-('2020-08-31', 78, 'AR Game', '2020-05-20'),
-('2020-06-19', 10, 'VR App', '2020-05-18');
+('2020-05-21', 200, 'E-Learning', 'Is a formally written declaration of the project and its idea and context to explain, context to explain, context to explain, and context to explain here.', '2020-05-12'),
+('2020-05-24', 178, 'AR Game', 'The goals and objectives to be reached, the business need and problem to be addressed.','2020-05-20'),
+('2020-05-31', 130, 'VR App', 'Potentials pitfalls and challenges, approaches and execution methods, resource estimates.','2020-05-18');
 
 -- /** tasks table ********************************/
 INSERT INTO 

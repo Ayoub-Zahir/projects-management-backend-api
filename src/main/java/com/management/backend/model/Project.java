@@ -28,6 +28,9 @@ public class Project{
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private String description;
+    
     @Column(name = "hourly_volume", nullable = false)
     private Integer hourlyVolume;
 
@@ -96,6 +99,14 @@ public class Project{
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
