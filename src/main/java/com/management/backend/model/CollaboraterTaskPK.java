@@ -18,6 +18,10 @@ public class CollaboraterTaskPK implements Serializable{
 
     // Constructors, getters, setters, hashcode and equals ------------>
     public CollaboraterTaskPK() {}
+    public CollaboraterTaskPK(Integer collaboraterId, Integer taskId) {
+        this.collaboraterId = collaboraterId;
+        this.taskId = taskId;
+    }
 
     public Integer getCollaboraterId() {
         return collaboraterId;

@@ -1,5 +1,6 @@
 package com.management.backend.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,7 +23,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tasks")
-public class Task {
+public class Task implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
 
     // Properties ---------------------------------->
     @Id
@@ -37,7 +41,7 @@ public class Task {
     @Column(name = "hourly_volume", nullable = false)
     private Integer hourlyVolume;
 
-    @Column(name = "is_complete", nullable = false ,columnDefinition = "boolean default false")
+    @Column(name = "is_complete",columnDefinition = "boolean default false")
     private Boolean isComplete;
 
     @Column(name = "start_date", nullable = false)
@@ -52,19 +56,25 @@ public class Task {
     // Relationships ------------------------------->
     // Task belong to one Project
     @ManyToOne(fetch = FetchType.LAZY)      
-    @JoinColumn(name = "project_id", nullable = false)
+    @JoinColumn(name = "project_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer","tasks"})
     private Project project;
 
-    // Task belong to many Collaboraters
+    // Task belong to many Competences
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "task_competence", 
+        joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(name = "competence_id", 
+        referencedColumnName = "id")
+    )
+    @JsonIgnoreProperties({"tasks","collaboraters"})
+    private Set<Competence> competences;
+
+    // Task belong to many Collaboraters 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
     @JsonIgnoreProperties({"id", "task"})
     private Set<CollaboraterTask> collaboraters;
-
-    // Task belong to many Competences
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tasks")
-    @JsonIgnoreProperties({"tasks","collaboraters"})
-    private Set<Competence> competences;
     
     
     // Constructors, getters and setters  ------------>
@@ -134,20 +144,20 @@ public class Task {
         this.competences = competences;
     }
 
-    public Set<CollaboraterTask> getCollaboraters() {
-        return collaboraters;
-    }
-
-    public void setCollaboraters(Set<CollaboraterTask> collaboraters) {
-        this.collaboraters = collaboraters;
-    }
-
     public Boolean getIsComplete() {
         return isComplete;
     }
 
     public void setIsComplete(Boolean isComplete) {
         this.isComplete = isComplete;
+    }
+
+    public Set<CollaboraterTask> getCollaboraters() {
+        return collaboraters;
+    }
+
+    public void setCollaboraters(Set<CollaboraterTask> collaboraters) {
+        this.collaboraters = collaboraters;
     }
 
 }

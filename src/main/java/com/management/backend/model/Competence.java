@@ -1,5 +1,6 @@
 package com.management.backend.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,18 +9,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.JoinColumn;
-
-
 @Entity
 @Table(name = "competences")
-public class Competence {
+public class Competence implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     // Properties ---------------------------------->
     @Id
@@ -28,7 +29,6 @@ public class Competence {
     
     @Column(nullable = false)
     private String name;
-
 
     // Relationships ------------------------------->
     // Competence belong to many Tasks

@@ -1,8 +1,11 @@
 package com.management.backend.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -10,10 +13,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
 @Table(name = "collaborater_task")
-public class CollaboraterTask {
+public class CollaboraterTask implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     // Properties ---------------------------------->
     @EmbeddedId
@@ -24,17 +28,17 @@ public class CollaboraterTask {
 
     // Relationships ------------------------------->
     // CollaboraterTask => Collaborater
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("collaborater_id")
     @JoinColumn(name = "collaborater_id")
-    @JsonIgnoreProperties({"competences", "tasks"})
+    @JsonIgnoreProperties({"tasks", "hibernateLazyInitializer"})
     private Collaborater collaborater;
 
     // CollaboraterTask => Task
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("task_id")
     @JoinColumn(name = "task_id")
-    @JsonIgnoreProperties({"project", "competences", "collaboraters"})
+    @JsonIgnoreProperties({"project", "competences", "collaboraters", "hibernateLazyInitializer"})
     private Task task;
 
     // Constructors, getters and setters  ------------>

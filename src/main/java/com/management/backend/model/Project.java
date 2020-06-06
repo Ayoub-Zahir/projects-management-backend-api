@@ -1,5 +1,6 @@
 package com.management.backend.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "projects")
-public class Project{
+public class Project implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
 
     // Properties ---------------------------------->
     @Id()
