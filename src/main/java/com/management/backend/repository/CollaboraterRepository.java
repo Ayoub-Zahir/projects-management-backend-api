@@ -12,4 +12,5 @@ public interface CollaboraterRepository extends JpaRepository<Collaborater, Inte
 
     @Query("SELECT c FROM Collaborater c WHERE c.firstName LIKE :keyword% OR c.lastName LIKE :keyword%")
     List<Collaborater> searchByName(@Param("keyword") String keyword);
+
 }

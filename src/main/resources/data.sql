@@ -1,4 +1,4 @@
--- -- -- /** collaboraters table ********************************/
+/** collaboraters table ********************************/
 INSERT INTO `collaboraters` (`first_name`, `last_name`, `email`, `photo_url`) VALUES
 ('ayoub', 'zahir','ayoub@gmail.com','assets/img/user2.svg'),
 ('john', 'doh', 'jhon@gmail.com', 'assets/img/user2.svg'),
@@ -6,7 +6,13 @@ INSERT INTO `collaboraters` (`first_name`, `last_name`, `email`, `photo_url`) VA
 ('anass', 'agrich','anass@gmail.com','assets/img/user2.svg'),
 ('youssef', 'zahir', 'youssef@gmail.com', 'assets/img/user2.svg');
 
--- -- -- /** competences table ********************************/
+/** users table ********************************/
+INSERT INTO `users` (`first_name`, `last_name`, `password`, `role`, `email`, `photo_url`) VALUES
+('admin', 'admin', '$2y$12$arOZS4qR4BFhjFSAaxddcuw3pohrU75w5xQHn7/7hOODv1N8ody7W','ROLE_ADMIN','admin@gmail.com','assets/img/user2.svg'),
+('manager', 'manager', '$2y$12$arOZS4qR4BFhjFSAaxddcuw3pohrU75w5xQHn7/7hOODv1N8ody7W','ROLE_MANAGER','manager@gmail.com', 'assets/img/user2.svg'),
+('collaborater', 'collaborater','$2y$12$arOZS4qR4BFhjFSAaxddcuw3pohrU75w5xQHn7/7hOODv1N8ody7W','ROLE_COLLABORATER','collaborater@gmail.com','assets/img/user2.svg');
+
+/** competences table ********************************/
 INSERT INTO `competences` (`name`) VALUES
 ('Angular'),
 ('Spring Boot'),
@@ -18,7 +24,7 @@ INSERT INTO `competences` (`name`) VALUES
 ('NodeJs'),
 ('Php Laravel');
 
--- -- -- /** collaborateur_competence table ********************************/
+/** collaborateur_competence table ********************************/
 INSERT INTO `collaborater_competence` (`competence_id`, `collaborater_id`) VALUES
 (1, 1),
 (2, 2),
@@ -28,7 +34,7 @@ INSERT INTO `collaborater_competence` (`competence_id`, `collaborater_id`) VALUE
 (6, 2),
 (8, 1);
 
--- -- -- /** projects table ********************************/
+/** projects table ********************************/
 INSERT INTO 
 `projects` (`end_date`, `hourly_volume`, `name`, `description`, `start_date`) 
 VALUES
@@ -36,7 +42,7 @@ VALUES
 ('2020-06-15', 178, 'AR Game', 'The goals and objectives to be reached, the business need and problem to be addressed.','2020-06-01'),
 ('2020-06-30', 130, 'VR App', 'Potentials pitfalls and challenges, approaches and execution methods, resource estimates.','2020-06-01');
 
--- -- -- /** tasks table ********************************/
+/** tasks table ********************************/
 INSERT INTO 
 `tasks` (`description`, `end_date`, `hourly_volume`, `name`, `start_date`, `project_id`) 
 VALUES
@@ -46,7 +52,7 @@ VALUES
 ('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-06-15', 40, 'Google VR', '2020-06-01', 3);
 
 
--- -- -- /** task_competence table ********************************/
+/** task_competence table ********************************/
 INSERT INTO 
 `task_competence` (`competence_id`, `task_id`) 
 VALUES
@@ -57,7 +63,7 @@ VALUES
 (6, 1),
 (7, 1);
 
--- -- -- /** collaborater_task table ********************************/
+/** collaborater_task table ********************************/
 INSERT INTO `collaborater_task` (`collaborater_id`, `task_id`, `working_hours`) VALUES
 (1, 2, 50),
 (1, 4, 20),
