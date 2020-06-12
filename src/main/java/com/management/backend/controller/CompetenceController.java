@@ -27,32 +27,32 @@ public class CompetenceController {
     @Autowired
     private CompetenceRepository competenceRepository;
 
-    // GET Resquests -------------------------------
-    @GetMapping("/competences")
+    // GET Requests ## Only Admins and Managers ---
+    @GetMapping("/api/manager/competences")
     public Page<Competence> getAll(@RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "rows", defaultValue = "5") Integer rows) {
         return this.competenceRepository.findAll(PageRequest.of(page, rows));
     }
 
-    @GetMapping("/competences/{id}")
+    @GetMapping("/api/manager/competences/{id}")
     public Competence get(@PathVariable Integer id) {
         return competenceRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Could not find competence " + id));
     }
 
-    @GetMapping("/competences/search")
+    @GetMapping("/api/manager/competences/search")
     public List<Competence> search(@RequestParam(name = "keyword") String keyword) {
         return competenceRepository.searchByName(keyword);
     }
 
-    // POST Resquest -------------------------------
-    @PostMapping("/competences")
+    // POST Request ## Only Admins and Managers ---
+    @PostMapping("/api/manager/competences")
     public Competence add(@Valid @RequestBody Competence newCompetence) {
         return this.competenceRepository.save(newCompetence);
     }
 
-    // PUT Resquest -------------------------------
-    @PutMapping("/competences/{id}")
+    // PUT Request ## Only Admins and Managers ---
+    @PutMapping("/api/manager/competences/{id}")
     public Competence update(@Valid @RequestBody Competence editCompetence, @PathVariable Integer id) {
 
         return this.competenceRepository.findById(id).map(currentCompetence -> {
@@ -64,8 +64,8 @@ public class CompetenceController {
         }).orElseThrow(() -> new EntityNotFoundException("Could not find competence " + id));
     }
 
-    // DELETE Resquest -------------------------------
-    @DeleteMapping("/competences/{id}")
+    // DELETE Request ## Only Admins and Managers ---
+    @DeleteMapping("/api/manager/competences/{id}")
     public void delete(@PathVariable Integer id) {
         this.competenceRepository.deleteById(id);
     }

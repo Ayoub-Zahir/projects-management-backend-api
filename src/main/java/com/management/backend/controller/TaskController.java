@@ -32,20 +32,20 @@ public class TaskController {
     @Autowired
     private CollaboraterTaskRepository collaboraterTaskRepository;
     
-    // GET Resquests -------------------------------
-    @GetMapping("/tasks")
+    // GET Requests ## Only Admins and Managers ---
+    @GetMapping("/api/manager/tasks")
     public List<Task> getAll() {
         return this.taskRepository.findAll();
     }
 
-    @GetMapping("/tasks/{id}")
+    @GetMapping("/api/manager/tasks/{id}")
     public Task get(@PathVariable Integer id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Could not find Task " + id));
     }
 
-    // POST Resquest -------------------------------
-    @PostMapping("/tasks")
+    // POST Request ## Only Admins and Managers ---
+    @PostMapping("/api/manager/tasks")
     public Task add(@Valid @RequestBody Task newTask) {
         Task currentTask = this.taskRepository.save(newTask);
 
@@ -65,8 +65,8 @@ public class TaskController {
         return currentTask;
     }
 
-    // PUT Resquest -------------------------------
-    @PutMapping("/tasks/{id}")
+    // PUT Request ## Only Admins and Managers ---
+    @PutMapping("/api/manager/tasks/{id}")
     public Task update(@Valid @RequestBody Task editTask, @PathVariable Integer id) {
 
         return this.taskRepository.findById(id).map(currentTask -> {
@@ -108,8 +108,18 @@ public class TaskController {
         }).orElseThrow(() -> new EntityNotFoundException("Could not find Task " + id));
     }
 
-    // DELETE Resquest -------------------------------
-    @DeleteMapping("/tasks/{id}")
+    // PUT Request ## Only Admins and Managers ---
+    @PutMapping("/api/manager/tasks/{id}/complete")
+    public void updateCompletedTask(@Valid @RequestBody Boolean isComplete, @PathVariable Integer id) {
+        Task currentTask = this.taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Could not find Task " + id));
+        
+        currentTask.setIsComplete(isComplete);
+        
+        this.taskRepository.save(currentTask);
+    }
+
+    // DELETE Request ## Only Admins and Managers ---
+    @DeleteMapping("/api/manager/tasks/{id}")
     public void delete(@PathVariable Integer id){
         Task currentTask = this.taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Could not find task " + id));
 

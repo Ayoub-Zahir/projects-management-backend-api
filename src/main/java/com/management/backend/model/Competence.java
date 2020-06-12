@@ -51,7 +51,7 @@ public class Competence implements Serializable {
         referencedColumnName = "id")
     )
     @JsonIgnoreProperties({"competences","tasks"})
-    private Set<Collaborater> collaboraters;
+    private Set<User> collaboraters;
 
     // Constructors, getters and setters  ------------>
     public Competence() { }
@@ -80,11 +80,11 @@ public class Competence implements Serializable {
         this.tasks = tasks;
     }
 
-    public Set<Collaborater> getCollaboraters() {
+    public Set<User> getCollaboraters() {
         return collaboraters;
     }
 
-    public void setCollaboraters(Set<Collaborater> collaboraters) {
+    public void setCollaboraters(Set<User> collaboraters) {
         this.collaboraters = collaboraters;
     }
 

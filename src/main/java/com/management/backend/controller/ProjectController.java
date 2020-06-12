@@ -31,28 +31,33 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
-    // GET Resquests -------------------------------
-    @GetMapping("/projects")
+    // @Autowired
+    // private UserRepository userRepository;
+
+    // GET Requests --------------------------
+    @GetMapping("/api/projects")
     public List<Project> getAll() {
         return this.projectRepository.findAll();
     }
 
-    @GetMapping("/projects/{id}")
+    @GetMapping("/api/projects/collaborater/{collaboraterId}")
+    public List<Project> getCollaboraterProjects(@PathVariable Integer collaboraterId) {
+        return this.projectRepository.findCollaboraterProjects(collaboraterId);
+    }
+
+    @GetMapping("/api/projects/{id}")
     public Project get(@PathVariable Integer id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Could not find project " + id));
     }
 
-    @GetMapping("/projects/{id}/tasks")
+    @GetMapping("/api/projects/{id}/tasks")
     public Page<Task> getTasks(
         @PathVariable Integer id, 
         @RequestParam(name = "page", defaultValue = "0") Integer page,
         @RequestParam(name = "rows", defaultValue = "5") Integer rows
     ) {
         return projectRepository.findById(id).map(currentProject -> {
-            // Page<Task> taskPage = new PageImpl<Task>(currentProject.getTasks(), PageRequest.of(page, 1), currentProject.getTasks().size());
-
-            // return taskPage;
             PageRequest pageable = PageRequest.of(page, rows);
             
             int start = (int) pageable.getOffset();
@@ -64,14 +69,14 @@ public class ProjectController {
         }).orElseThrow(() -> new EntityNotFoundException("Could not find project " + id));
     }
 
-    // POST Resquest -------------------------------
-    @PostMapping("/projects")
+    // POST Request ## Only Admins and Managers 
+    @PostMapping("/api/manager/projects")
     public Project add(@Valid @RequestBody Project newProject) {
         return this.projectRepository.save(newProject);
     }
 
-    // PUT Resquest -------------------------------
-    @PutMapping("/projects/{id}")
+    // PUT Request ## Only Admins and Managers
+    @PutMapping("/api/manager/projects/{id}")
     public Project update(@Valid @RequestBody Project editProject, @PathVariable Integer id) {
         return this.projectRepository.findById(id).map(currentProject -> {
             currentProject.setName(editProject.getName());
@@ -83,8 +88,8 @@ public class ProjectController {
         }).orElseThrow(() -> new EntityNotFoundException("Could not find project " + id));
     }
 
-    // DELETE Resquest -------------------------------
-    @DeleteMapping("/projects/{id}")
+    // DELETE Request ## Only Admins and Managers
+    @DeleteMapping("/api/manager/projects/{id}")
     public void delete(@PathVariable Integer id) {
         Project currentProject = this.projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Could not find project " + id));
