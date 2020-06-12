@@ -3,6 +3,7 @@ package com.management.backend.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -39,16 +40,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         
         // User authority
-        userDetails.getAuthorities().forEach(authority -> {
-            if(authority.getAuthority().equals("ROLE_ADMIN"))
-                claims.put("admin", true);
-        
-            if(authority.getAuthority().equals("ROLE_MANAGER"))
-                claims.put("manager", true);
-
-            if(authority.getAuthority().equals("ROLE_COLLABORATER"))
-                claims.put("collaborater", true);
-        });
+        claims.put("authorities", userDetails.getAuthorities());
 
         return createToken(claims, userDetails.getUsername());
     }

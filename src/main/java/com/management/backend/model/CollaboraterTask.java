@@ -32,7 +32,7 @@ public class CollaboraterTask implements Serializable{
     @MapsId("collaborater_id")
     @JoinColumn(name = "collaborater_id")
     @JsonIgnoreProperties({"tasks", "hibernateLazyInitializer"})
-    private Collaborater collaborater;
+    private User collaborater;
 
     // CollaboraterTask => Task
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,11 +60,11 @@ public class CollaboraterTask implements Serializable{
         this.workingHours = workingHours;
     }
 
-    public Collaborater getCollaborater() {
+    public User getCollaborater() {
         return collaborater;
     }
 
-    public void setCollaborater(Collaborater collaborater) {
+    public void setCollaborater(User collaborater) {
         this.collaborater = collaborater;
     }
 

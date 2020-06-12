@@ -5,10 +5,19 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,10 +55,27 @@ public class User implements UserDetails {
     @Column(name = "photo_url")
     private String photoURL;
 
+    // Relationships ------------------------------->
+    // Collaborater has many Competences
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "collaborater_competence", 
+        joinColumns = @JoinColumn(name = "collaborater_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(name = "competence_id", 
+        referencedColumnName = "id")
+    )
+    @JsonIgnoreProperties({"tasks", "collaboraters"})
+    private Set<Competence> competences;
+
+    // Collaborater belong to many tasks
+    @OneToMany(mappedBy = "collaborater")
+    @JsonIgnoreProperties({"id","collaborater"})
+    private Set<CollaboraterTask> tasks;
+
     public Integer getId() {
         return id;
     }
-
+ 
     public void setId(Integer id) {
         this.id = id;
     }
@@ -110,6 +136,23 @@ public class User implements UserDetails {
         this.photoURL = photoURL;
     }
 
+    public Set<Competence> getCompetences() {
+        return this.competences;
+    }
+
+    public void setCompetences(Set<Competence> competences) {
+        this.competences = competences;
+    }
+
+    public Set<CollaboraterTask> getTasks() {
+        return this.tasks;    
+    }
+
+    public void setTasks(Set<CollaboraterTask> tasks) {
+        this.tasks = tasks;
+    }
+
+    @JsonIgnore
     @Override
     public Set<GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
@@ -118,26 +161,31 @@ public class User implements UserDetails {
         return authorities;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return this.email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return this.active;
