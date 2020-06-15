@@ -31,9 +31,6 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
-    // @Autowired
-    // private UserRepository userRepository;
-
     // GET Requests --------------------------
     @GetMapping("/api/projects")
     public List<Project> getAll() {
