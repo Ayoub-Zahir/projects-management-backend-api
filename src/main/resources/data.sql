@@ -48,7 +48,7 @@ INSERT INTO `collaborater_competence` (`competence_id`, `collaborater_id`) VALUE
 INSERT INTO 
 `projects` (`end_date`, `hourly_volume`, `name`, `description`, `start_date`) 
 VALUES
-('2020-06-16', 200, 'E-Learning', 'Is a formally written declaration of the project and its idea and context to explain, context to explain, context to explain, and context to explain here.', '2020-06-10'),
+('2020-06-18', 200, 'E-Learning', 'Is a formally written declaration of the project and its idea and context to explain, context to explain, context to explain, and context to explain here.', '2020-06-10'),
 ('2020-06-20', 178, 'AR Game', 'The goals and objectives to be reached, the business need and problem to be addressed.','2020-06-10'),
 ('2020-07-01', 130, 'VR App', 'Potentials pitfalls and challenges, approaches and execution methods, resource estimates.','2020-06-10');
 
@@ -58,7 +58,11 @@ INSERT INTO
 VALUES
 ('The implementation of a simple many-to-many relationship was rather straightforward.', '2020-06-05', 20, 'DB modeling', '2020-06-01', 1),
 (' The only problem is that we cannot add a property to a relationship that way, because we connected the entities directly.', '2020-06-13', 80, 'UI and UX', '2020-06-08', 1),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 3', '2020-06-29', 1),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 4', '2020-06-29', 1),
 ('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Design PS', '2020-06-29', 2),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 2', '2020-06-29', 2),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 3', '2020-06-29', 2),
 ('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-06-23', 40, 'Google VR', '2020-06-15', 3);
 
 
