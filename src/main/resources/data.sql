@@ -1,11 +1,3 @@
-/** collaboraters table ********************************/
--- INSERT INTO `collaboraters` (`first_name`, `last_name`, `email`, `photo_url`) VALUES
--- ('ayoub', 'zahir','ayoub@gmail.com','assets/img/user2.svg'),
--- ('john', 'doh', 'jhon@gmail.com', 'assets/img/user2.svg'),
--- ('aynam', 'tahir','aynam@gmail.com','assets/img/user2.svg'),
--- ('anass', 'agrich','anass@gmail.com','assets/img/user2.svg'),
--- ('youssef', 'zahir', 'youssef@gmail.com', 'assets/img/user2.svg');
-
 /** users table ********************************/
 INSERT INTO `users` (`first_name`, `last_name`, `password`, `role`, `email`, `photo_url`) VALUES
 ('ayoub', 'zahir', '$2y$12$arOZS4qR4BFhjFSAaxddcuw3pohrU75w5xQHn7/7hOODv1N8ody7W','ROLE_ADMIN','admin@gmail.com','assets/img/admin.svg'),
@@ -56,13 +48,13 @@ VALUES
 INSERT INTO 
 `tasks` (`description`, `end_date`, `hourly_volume`, `name`, `start_date`, `project_id`) 
 VALUES
-('The implementation of a simple many-to-many relationship was rather straightforward.', '2020-06-05', 20, 'DB modeling', '2020-06-01', 1),
-(' The only problem is that we cannot add a property to a relationship that way, because we connected the entities directly.', '2020-06-13', 80, 'UI and UX', '2020-06-08', 1),
-('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 3', '2020-06-29', 1),
-('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 4', '2020-06-29', 1),
-('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Design PS', '2020-06-29', 2),
-('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 2', '2020-06-29', 2),
-('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 80, 'Task 3', '2020-06-29', 2),
+('The implementation of a simple many-to-many relationship was rather straightforward.', '2020-06-20', 20, 'DB modeling', '2020-06-15', 1),
+(' The only problem is that we cannot add a property to a relationship that way, because we connected the entities directly.', '2020-06-23', 50, 'UI and UX', '2020-06-15', 1),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 20, 'Task 3', '2020-06-29', 1),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 30, 'Task 4', '2020-06-29', 1),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 15, 'Design PS', '2020-06-29', 2),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 25, 'Task 2', '2020-06-29', 2),
+('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-07-04', 44, 'Task 3', '2020-06-29', 2),
 ('Since we map DB attributes to class fields in JPA, we need to create a new entity class for the relationship.', '2020-06-23', 40, 'Google VR', '2020-06-15', 3);
 
 
@@ -79,7 +71,7 @@ VALUES
 
 /** collaborater_task table ********************************/
 INSERT INTO `collaborater_task` (`collaborater_id`, `task_id`, `working_hours`) VALUES
-(3, 1, 50),
+(3, 1, 10),
 (4, 2, 20),
 (5, 3, 20),
 (6, 4, 30);
